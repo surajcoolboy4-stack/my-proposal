@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Surprise</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 25%, #ff9ff3 50%, #feca57 75%, #ff9ff3 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            cursor: none;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .balloons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+        
+        .balloon {
+            position: absolute;
+            animation: balloonFloat 8s infinite ease-in-out;
+        }
+        
+        .balloon:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+            background: linear-gradient(45deg, #ff6b9d, #ff8fab);
+        }
+        
+        .balloon:nth-child(2) {
+            left: 25%;
+            animation-delay: 1s;
+            background: linear-gradient(45deg, #feca57, #ffd93d);
+        }
+        
+        .balloon:nth-child(3) {
+            left: 40%;
+            animation-delay: 2s;
+            background: linear-gradient(45deg, #48dbfb, #0abde3);
+        }
+        
+        .balloon:nth-child(4) {
+            left: 60%;
+            animation-delay: 0.5s;
+            background: linear-gradient(45deg, #ff9ff3, #e667ff);
+        }
+        
+        .balloon:nth-child(5) {
+            left: 75%;
+            animation-delay: 1.5s;
+            background: linear-gradient(45deg, #54a0ff, #2e86de);
+        }
+        
+        @keyframes balloonFloat {
+            0%, 100% { transform: translateY(100vh) scale(0); }
+            10% { transform: translateY(90vh) scale(0.8); }
+            50% { transform: translateY(30vh) scale(1.2); }
+            90% { transform: translateY(10vh) scale(0.9); }
+        }
+        
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 30px;
+            background: #333;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            background: linear-gradient(45deg, #fff, #ffb6c1, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px #ff69b4); }
+            to { filter: drop-shadow(0 0 30px #ff1493); }
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            pointer-events: none;
+            user-select: none;
+        }
+        
+        .btn-yes {
+            background: linear-gradient(45deg, #ff6b9d, #ff8e8e);
+            color: white;
+        }
+        
+        .btn-no {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .movement-area {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+        
+        .movement-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            background: rgba(0,0,0,0.5);
+            padding: 1rem;
+            border-radius: 10px;
+            z-index: 15;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="balloons" id="balloons"></div>
+    
+    <div class="movement-area" id="movementArea"></div>
+    
+    <div class="container">
+        <h1>Will You Be Mine? 💕</h1>
+        <div class="buttons">
+            <button class="btn btn-yes" id="yesBtn">Yes 😍</button>
+            <button class="btn btn-no" id="noBtn">No 🙅‍♀️</button>
+        </div>
+    </div>
+    
+    <div class="movement-info">
+        Try to click "No"!<br>
+        💕 It's impossible! 💕
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = ['💖', '💕', '💗', '💓', '💞'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Create balloons
+        function createBalloons() {
+            const balloonsContainer = document.getElementById('balloons');
+            for (let i = 0; i < 5; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.width = (40 + Math.random() * 30) + 'px';
+                balloon.style.height = balloon.style.width;
+                balloon.style.borderRadius = '5

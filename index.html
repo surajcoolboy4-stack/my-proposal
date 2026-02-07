@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Just One Question ❤️</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffe6f0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  color: #ff3366;
+}
+
+button {
+  font-size: 22px;
+  padding: 15px 45px;
+  border: none;
+  border-radius: 30px;
+  background: #ff3366;
+  color: white;
+  cursor: pointer;
+}
+
+.love {
+  display: none;
+  font-size: 32px;
+  color: #ff1a75;
+}
+
+.heart {
+  position: absolute;
+  color: red;
+  font-size: 24px;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-800px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1 id="question">Will you be mine forever? ❤️</h1>
+  <button id="yesBtn">YES 💍</button>
+  <div class="love" id="loveText">I love you biwi ❤️</div>
+</div>
+
+<script>
+const btn = document.getElementById("yesBtn");
+const love = document.getElementById("loveText");
+const question = document.getElementById("question");
+
+btn.onclick = () => {
+  question.style.display = "none";
+  btn.style.display = "none";
+  love.style.display = "block";
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.bottom = "0px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 4000);
+  }, 300);
+
+  setTimeout(() => {
+    window.location.href =
+      "mailto:surajcoolboy4@gmail.com?subject=She%20Said%20YES%20❤️&body=I%20love%20you%20biwi%20❤️";
+  }, 2500);
+};
+</script>
+</body>
+</html>
